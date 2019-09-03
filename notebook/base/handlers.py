@@ -520,7 +520,12 @@ class IPythonHandler(AuthenticatedHandler):
     
     @property
     def template_namespace(self):
+        coursestring = os.getenv('COURSE', '')
+        if coursestring:
+            coursestring = 'Kurs: ' + coursestring;
+            coursestring = coursestring[:coursestring.rindex(' ')+1]
         return dict(
+            course=coursestring,
             base_url=self.base_url,
             default_url=self.default_url,
             ws_url=self.ws_url,
